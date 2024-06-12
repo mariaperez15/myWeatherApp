@@ -15,7 +15,7 @@
         android:orientation="vertical"
         android:gravity="center"
         android:padding="16dp"
-        android:background="#87CEEB">
+        android:background="#0099CC">
 
         <TextView
             android:id="@+id/hour"

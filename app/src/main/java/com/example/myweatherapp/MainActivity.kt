@@ -11,6 +11,8 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myweatherapp.databinding.ActivityMainBinding
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
@@ -26,8 +28,6 @@ class MainActivity : AppCompatActivity() {
         replaceFragment(Home())
 
 
-
-
         binding.bottomNavigationView.setOnItemSelectedListener {
 
             when(it.itemId){
@@ -40,6 +40,13 @@ class MainActivity : AppCompatActivity() {
             true
         }
 
+    }
+
+    private fun getRetrofit():Retrofit{
+        return Retrofit.Builder()
+            .baseUrl("https://api.open-meteo.com/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
     }
 
     private fun replaceFragment(fragment: Fragment){

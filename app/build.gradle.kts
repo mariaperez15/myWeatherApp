@@ -25,6 +25,9 @@ android {
                 "proguard-rules.pro"
             )
         }
+        getByName("debug") {
+            isDebuggable = true
+        }
     }
 
     buildFeatures{
@@ -38,7 +41,11 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    buildFeatures{
+        viewBinding = true
+    }
 }
+
 
 dependencies {
 
@@ -47,7 +54,15 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.picasso)
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    implementation(libs.kotlinx.coroutines.android)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    implementation(libs.moshiKotlin)
+    implementation(libs.moshi)
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
 }

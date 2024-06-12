@@ -1,33 +1,37 @@
 package com.example.myweatherapp
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myweatherapp.databinding.TemperatureItemBinding
 
-class TemperatureAdapter(private val temperature: List<Temperature>) :
+class TemperatureAdapter(private var temperatures: List<Temperature>) :
     RecyclerView.Adapter<TemperatureAdapter.ViewHolder>() {
 
-    override fun onCreateViewHolder( parent: ViewGroup, viewType: Int): TemperatureAdapter.ViewHolder {
-        val binding =TemperatureItemBinding.inflate(
+    fun updateData(newTemperatures: List<Temperature>) {
+        temperatures = newTemperatures
+        notifyDataSetChanged()
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val binding = TemperatureItemBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
-
         )
-
         return ViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: TemperatureAdapter.ViewHolder, position: Int) {
-        holder.bind(temperature[position])
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.bind(temperatures[position])
     }
 
-    override fun getItemCount() = temperature.size
+    override fun getItemCount() = temperatures.size
 
-    class ViewHolder(private val binding: TemperatureItemBinding): RecyclerView.ViewHolder(binding.root){
-        fun bind(temperature: Temperature){
+    class ViewHolder(private val binding: TemperatureItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+
+        fun bind(temperature: Temperature) {
             binding.hour.text = buildString {
                 append(temperature.hour)
                 append(" h.")
@@ -36,7 +40,6 @@ class TemperatureAdapter(private val temperature: List<Temperature>) :
                 append(temperature.degrees.toString())
                 append(" º")
             }
-
         }
     }
 }
