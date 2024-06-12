@@ -25,25 +25,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         replaceFragment(Home())
 
-        val temperatureList = listOf(
-            Temperature("2024-06-11T00:00", 3.0),
-            Temperature("2024-06-11T01:00", 6.8),
-            Temperature("2024-06-11T02:00", 12.4),
-            Temperature("2024-06-11T03:00", 14.2),
-            Temperature("2024-06-11T03:00", 14.2),
-            Temperature("2024-06-11T03:00", 14.2),
-            Temperature("2024-06-11T03:00", 14.2),
-            Temperature("2024-06-11T03:00", 14.2),
-        )
-
-
-        val formattedTemperatureList = temperatureList.map { temperature ->
-            val dateTime = LocalTime.parse(temperature.hour, DateTimeFormatter.ISO_LOCAL_DATE_TIME)
-            val horaFormateada = dateTime.format(DateTimeFormatter.ofPattern("HH:mm"))
-            Temperature(horaFormateada, temperature.degrees)
-        }
-
-        binding.recycler.adapter = TemperatureAdapter(formattedTemperatureList)
 
 
 

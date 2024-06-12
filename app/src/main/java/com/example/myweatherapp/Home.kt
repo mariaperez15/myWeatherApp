@@ -1,25 +1,24 @@
 package com.example.myweatherapp
 
+import android.os.Build
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.myweatherapp.databinding.FragmentHomeBinding
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [Home.newInstance] factory method to
- * create an instance of this fragment.
- */
 class Home : Fragment() {
-    // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+
+    private var _binding: FragmentHomeBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,20 +32,44 @@ class Home : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val temperatureList = listOf(
+            Temperature("2024-06-11T00:00", 3.0),
+            Temperature("2024-06-11T01:00", 6.8),
+            Temperature("2024-06-11T02:00", 12.4),
+            Temperature("2024-06-11T03:00", 14.2),
+            Temperature("2024-06-11T03:00", 14.2),
+            Temperature("2024-06-11T03:00", 14.2),
+            Temperature("2024-06-11T03:00", 14.2),
+            Temperature("2024-06-11T03:00", 14.2),
+        )
+
+        val formattedTemperatureList = temperatureList.map { temperature ->
+            val dateTime = LocalTime.parse(temperature.hour, DateTimeFormatter.ISO_LOCAL_DATE_TIME)
+            val horaFormateada = dateTime.format(DateTimeFormatter.ofPattern("HH:mm"))
+            Temperature(horaFormateada, temperature.degrees)
+        }
+
+        binding.recycler.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        binding.recycler.adapter = TemperatureAdapter(formattedTemperatureList)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment Home.
-         */
-        // TODO: Rename and change types and number of parameters
+        private const val ARG_PARAM1 = "param1"
+        private const val ARG_PARAM2 = "param2"
+
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             Home().apply {
