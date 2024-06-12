@@ -28,8 +28,15 @@ class TemperatureAdapter(private val temperature: List<Temperature>) :
 
     class ViewHolder(private val binding: TemperatureItemBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(temperature: Temperature){
-            binding.hour.text = temperature.hour
-            binding.degrees.text = temperature.degrees.toString()
+            binding.hour.text = buildString {
+                append(temperature.hour)
+                append(" h.")
+            }
+            binding.degrees.text = buildString {
+                append(temperature.degrees.toString())
+                append(" º")
+            }
+
         }
     }
 }

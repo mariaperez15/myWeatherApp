@@ -7,14 +7,15 @@
     android:layout_margin="5dp"
     android:layout_marginBottom="20dp"
     android:elevation="0dp"
-    app:cardBackgroundColor="@android:color/transparent"
     app:cardCornerRadius="10dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:gravity="center"
+        android:padding="16dp"
+        android:background="#87CEEB">
 
         <TextView
             android:id="@+id/hour"
@@ -22,7 +23,8 @@
             android:layout_height="wrap_content"
             android:textColor="@android:color/white"
             android:textSize="16sp"
-            tools:text="Hour text" />
+            android:textStyle="bold"
+            tools:text="Hour text"/>
 
         <TextView
             android:id="@+id/degrees"
@@ -30,6 +32,7 @@
             android:layout_height="wrap_content"
             android:textColor="@android:color/white"
             android:textSize="14sp"
+            android:textStyle="bold"
             tools:text="weather text" />
 
     </LinearLayout>
