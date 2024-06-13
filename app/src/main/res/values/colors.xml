@@ -2,4 +2,6 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="colorLightBlue">#00D3FF</color> <!-- Azul claro -->
+    <color name="colorDarkBlue">#102C54</color> <!-- Azul oscuro -->
 </resources>

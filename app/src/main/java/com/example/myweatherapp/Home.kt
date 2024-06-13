@@ -18,21 +18,10 @@ import java.util.Date
 import java.util.Locale
 
 class Home : Fragment() {
-    private var param1: String? = null
-    private var param2: String? = null
     private lateinit var temperatureAdapter: TemperatureAdapter
     private lateinit var apiService: WeatherAPIService
-
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,19 +33,15 @@ class Home : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         temperatureAdapter = TemperatureAdapter(emptyList())
         binding.recycler.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         binding.recycler.adapter = temperatureAdapter
-
         val retrofit = Retrofit.Builder()
             .baseUrl("https://api.open-meteo.com/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-
         apiService = retrofit.create(WeatherAPIService::class.java)
-
-        fetchWeatherData(40.4165, -3.7026, "Madrid")
+        fetchWeatherData(40.42, -3.6999998, "Madrid")
         updateCurrentTime()
     }
 
@@ -76,37 +61,50 @@ class Home : Fragment() {
                         set(Calendar.SECOND, 0)
                         set(Calendar.MILLISECOND, 0)
                     }.time
-
                     val forecastResponse = response.body()
                     forecastResponse?.let { response ->
+                        val isDay = response.current.is_day == 1
+
+                        Log.d("Noche", "${isDay})")
+                        applyDayNightBackground(isDay)
+
                         val temperatureList = response.hourly.time.zip(response.hourly.temperature_2m)
                             .mapNotNull { (time, temperature) ->
                                 val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm", Locale.getDefault())
-                                val outputFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
                                 val date = inputFormat.parse(time)
-                                val formattedTime = outputFormat.format(date)
-                                val hour = outputFormat.calendar.get(Calendar.HOUR_OF_DAY)
-                                val minute = outputFormat.calendar.get(Calendar.MINUTE)
-
-                                if (date >= currentTime) {
-                                    Temperature(hour = formattedTime, degrees = temperature)
+                                if (date != null && date >= currentTime) {
+                                    Temperature(
+                                        hour = time.substring(11, 16),
+                                        degrees = temperature,
+                                        precipitationProbability = response.hourly.precipitation_probability[response.hourly.time.indexOf(time)]
+                                    )
                                 } else {
                                     null
                                 }
                             }
-
                         temperatureAdapter.updateData(temperatureList)
                         temperatureList.forEach { temperature ->
-                            Log.d("prueba", "Hour: ${temperature.hour}, Degrees: ${temperature.degrees}")
+                            Log.d("HomeFragment", "Hour: ${temperature.hour}, Degrees: ${temperature.degrees}, Probability: ${temperature.precipitationProbability}")
                         }
 
-                        val firstHourRainProbability = response.hourly.precipitation_probability.firstOrNull()
-                        binding.rainProbability.text = "${firstHourRainProbability ?: "-"}%"
-
+                        binding.rain.text = "${response.current.precipitation} mm"
+                        binding.temperatureMax.text = "${response.daily.temperature_2m_max} °C"
+                        binding.temperatureMin.text = "${response.daily.temperature_2m_min} °C"
+                        binding.currentTemp.text = "${response.current.temperature_2m} °C"
                         binding.cityName.text = cityName
+
+                        val maxTemperature = response.daily.temperature_2m_max.maxOrNull()
+                        maxTemperature?.let {
+                            binding.temperatureMax.text = "${it} °C"
+                        }
+
+                        val minTemperature = response.daily.temperature_2m_min.minOrNull()
+                        minTemperature?.let {
+                            binding.temperatureMin.text = "${it} °C"
+                        }
                     }
                 } else {
-                    Log.e("prueba", "Failed to fetch data for $cityName")
+                    Log.e("HomeFragment", "Failed to fetch data for $cityName")
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -114,7 +112,10 @@ class Home : Fragment() {
         }
     }
 
-
+    private fun applyDayNightBackground(isDay: Boolean) {
+        val mainContainer = binding.mainContainer
+        mainContainer.setBackgroundResource(if (isDay) R.drawable.bg_day_night else R.drawable.bg_day_night)
+    }
     private fun updateCurrentTime() {
         val currentTime = Date()
         val formattedTime = SimpleDateFormat("HH:mm", Locale.getDefault()).format(currentTime)
@@ -124,19 +125,5 @@ class Home : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    companion object {
-        private const val ARG_PARAM1 = "param1"
-        private const val ARG_PARAM2 = "param2"
-
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            Home().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
     }
 }
