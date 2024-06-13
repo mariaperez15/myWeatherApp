@@ -19,6 +19,7 @@ import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 import com.example.myweatherapp.WeatherAPIService
 import java.text.SimpleDateFormat
+import java.util.Calendar
 import java.util.Locale
 
 
@@ -67,7 +68,6 @@ class Home : Fragment() {
 
     private fun fetchWeatherData() {
         lifecycleScope.launch {
-            Log.d("prueba", "Fetching weather data...")
             try {
                 val response = apiService.getWeather(
                     latitude = 40.4165,
@@ -76,21 +76,30 @@ class Home : Fragment() {
                     hourlyParams = "temperature_2m,precipitation_probability,rain,weather_code",
                     dailyParams = "weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max"
                 )
-                Log.d("prueba", "Response received")
                 if (response.isSuccessful) {
-                    Log.d("prueba", "Response is successful")
                     val forecastResponse = response.body()
                     forecastResponse?.let { response ->
+                        val currentTime = Calendar.getInstance().apply {
+                            set(Calendar.MINUTE, 0)
+                            set(Calendar.SECOND, 0)
+                            set(Calendar.MILLISECOND, 0)
+                        }.time
+
                         val temperatureList = response.hourly.time.zip(response.hourly.temperature_2m)
-                            .map { (time, temperature) ->
+                            .mapNotNull { (time, temperature) ->
                                 val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm", Locale.getDefault())
                                 val outputFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
                                 val date = inputFormat.parse(time)
-                                val formattedTime = outputFormat.format(date)
-                                Temperature(hour = formattedTime, degrees = temperature)
+
+                                if (date != null && (date.after(currentTime) || date.equals(currentTime))) {
+                                    val formattedTime = outputFormat.format(date)
+                                    Temperature(hour = formattedTime, degrees = temperature)
+                                } else {
+                                    null
+                                }
                             }
+
                         temperatureAdapter.updateData(temperatureList)
-                        Log.d("prueba", "Temperature List:")
                         temperatureList.forEach { temperature ->
                             Log.d("prueba", "Hour: ${temperature.hour}, Degrees: ${temperature.degrees}")
                         }
@@ -103,6 +112,7 @@ class Home : Fragment() {
             }
         }
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
