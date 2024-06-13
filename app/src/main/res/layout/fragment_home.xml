@@ -26,7 +26,7 @@
             android:textColor="@android:color/white" />
 
         <TextView
-            android:id="@+id/address"
+            android:id="@+id/cityName"
             android:textSize="24sp"
             android:text="Location"
             android:layout_width="wrap_content"
@@ -41,7 +41,7 @@
             android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/address">
+            android:layout_below="@id/cityName">
 
             <TextView
                 android:id="@+id/update_at"
@@ -106,6 +106,32 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/rainContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@id/cityName"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp">
+
+            <ImageView
+                android:id="@+id/imageRain"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/paraguas"
+                android:layout_marginEnd="8dp" />
+
+            <TextView
+                android:id="@+id/rain_probability"
+                android:text="Rain Probability"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:gravity="center_vertical">
+            </TextView>
+
+        </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler"

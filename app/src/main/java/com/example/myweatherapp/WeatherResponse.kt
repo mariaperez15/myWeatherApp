@@ -19,36 +19,36 @@ data class WeatherResponse(
 data class Units(
     val time: String,
     val interval: String,
-    @Json(name = "temperature_2m") val temperature2m: String,
-    @Json(name = "is_day") val isDay: String,
+    val temperature_2m: String,
+    val is_day: String,
     val precipitation: String,
     val rain: String,
-    @Json(name = "weather_code") val weatherCode: String,
-    @Json(name = "precipitation_probability") val precipitationProbability: String
+    val weather_code: String,
+    val precipitation_probability: String
 )
 
 data class Current(
     val time: String,
     val interval: Int,
-    @Json(name = "temperature_2m") val temperature2m: Double,
-    @Json(name = "is_day") val isDay: Int,
+    val temperature_2m: Double,
+    val is_day: Int,
     val precipitation: Double,
     val rain: Double,
-    @Json(name = "weather_code") val weatherCode: Int
+    val weather_code: Int
 )
 
 data class Hourly(
     val time: List<String>,
     val temperature_2m: List<Double>,
-    @Json(name = "precipitation_probability") val precipitationProbability: List<Int>,
+    val precipitation_probability: List<Int>,
     val rain: List<Double>,
-    @Json(name = "weather_code") val weatherCode: List<Int>
+    val weather_code: List<Int>
 )
 
 data class Daily(
     val time: List<String>,
-    @Json(name = "weather_code") val weatherCode: List<Int>,
-    @Json(name = "temperature_2m_max") val temperature2mMax: List<Double>,
-    @Json(name = "temperature_2m_min") val temperature2mMin: List<Double>,
-    @Json(name = "precipitation_probability_max") val precipitationProbabilityMax: List<Int>
+    val weather_code: List<Int>,
+    val temperature_2m_max: List<Double>,
+    val temperature_2m_min: List<Double>,
+    val precipitation_probability_max: List<Int>
 )

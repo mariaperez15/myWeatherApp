@@ -1,34 +1,27 @@
 package com.example.myweatherapp
-import com.example.myweatherapp.TemperatureAdapter
-import android.os.Build
+
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.myweatherapp.databinding.FragmentHomeBinding
 import kotlinx.coroutines.launch
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.time.LocalTime
-import java.time.format.DateTimeFormatter
-import com.example.myweatherapp.WeatherAPIService
 import java.text.SimpleDateFormat
 import java.util.Calendar
+import java.util.Date
 import java.util.Locale
-
 
 class Home : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     private lateinit var temperatureAdapter: TemperatureAdapter
     private lateinit var apiService: WeatherAPIService
-
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
@@ -63,36 +56,39 @@ class Home : Fragment() {
 
         apiService = retrofit.create(WeatherAPIService::class.java)
 
-        fetchWeatherData()
+        fetchWeatherData(40.4165, -3.7026, "Madrid")
+        updateCurrentTime()
     }
 
-    private fun fetchWeatherData() {
+    private fun fetchWeatherData(latitude: Double, longitude: Double, cityName: String) {
         lifecycleScope.launch {
             try {
                 val response = apiService.getWeather(
-                    latitude = 40.4165,
-                    longitude = -3.7026,
+                    latitude = latitude,
+                    longitude = longitude,
                     currentParams = "temperature_2m,is_day,precipitation,rain,weather_code",
                     hourlyParams = "temperature_2m,precipitation_probability,rain,weather_code",
                     dailyParams = "weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max"
                 )
                 if (response.isSuccessful) {
+                    val currentTime = Calendar.getInstance().apply {
+                        set(Calendar.MINUTE, 0)
+                        set(Calendar.SECOND, 0)
+                        set(Calendar.MILLISECOND, 0)
+                    }.time
+
                     val forecastResponse = response.body()
                     forecastResponse?.let { response ->
-                        val currentTime = Calendar.getInstance().apply {
-                            set(Calendar.MINUTE, 0)
-                            set(Calendar.SECOND, 0)
-                            set(Calendar.MILLISECOND, 0)
-                        }.time
-
                         val temperatureList = response.hourly.time.zip(response.hourly.temperature_2m)
                             .mapNotNull { (time, temperature) ->
                                 val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm", Locale.getDefault())
                                 val outputFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
                                 val date = inputFormat.parse(time)
+                                val formattedTime = outputFormat.format(date)
+                                val hour = outputFormat.calendar.get(Calendar.HOUR_OF_DAY)
+                                val minute = outputFormat.calendar.get(Calendar.MINUTE)
 
-                                if (date != null && (date.after(currentTime) || date.equals(currentTime))) {
-                                    val formattedTime = outputFormat.format(date)
+                                if (date >= currentTime) {
                                     Temperature(hour = formattedTime, degrees = temperature)
                                 } else {
                                     null
@@ -103,9 +99,14 @@ class Home : Fragment() {
                         temperatureList.forEach { temperature ->
                             Log.d("prueba", "Hour: ${temperature.hour}, Degrees: ${temperature.degrees}")
                         }
+
+                        val firstHourRainProbability = response.hourly.precipitation_probability.firstOrNull()
+                        binding.rainProbability.text = "${firstHourRainProbability ?: "-"}%"
+
+                        binding.cityName.text = cityName
                     }
                 } else {
-                    // Handle error response
+                    Log.e("prueba", "Failed to fetch data for $cityName")
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -113,6 +114,12 @@ class Home : Fragment() {
         }
     }
 
+
+    private fun updateCurrentTime() {
+        val currentTime = Date()
+        val formattedTime = SimpleDateFormat("HH:mm", Locale.getDefault()).format(currentTime)
+        binding.updateAt.text = "Updated at $formattedTime"
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()
