@@ -1,5 +1,6 @@
 package com.example.myweatherapp
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -53,6 +54,7 @@ class Home : Fragment() {
         updateCurrentTime()
     }
 
+    @SuppressLint("SetTextI18n")
     private fun fetchWeatherData(latitude: Double, longitude: Double, cityName: String) {
         lifecycleScope.launch {
             try {
@@ -125,6 +127,7 @@ class Home : Fragment() {
         root.setBackgroundResource(if (isDay) R.drawable.bg_day else R.drawable.bg_night)
     }
 
+    @SuppressLint("SetTextI18n")
     private fun updateCurrentTime() {
         val currentTime = Date()
         val formattedTime = SimpleDateFormat("HH:mm", Locale.getDefault()).format(currentTime)

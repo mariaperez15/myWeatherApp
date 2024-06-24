@@ -1,3 +1,4 @@
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -52,6 +53,7 @@ class CityDetailFragment : Fragment() {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun fetchWeatherData(latitude: Double, longitude: Double) {
         lifecycleScope.launch {
             try {
@@ -74,7 +76,7 @@ class CityDetailFragment : Fragment() {
                         val isDay = weatherResponse.current.is_day == 1
 
                         applyDayNightBackground(isDay)
-                        Log.d("diaonoche", "${isDay}")
+                        Log.d("diaonoche", "$isDay")
 
                         // Actualizar vistas en el hilo principal
                         launch(Dispatchers.Main) {
@@ -83,11 +85,13 @@ class CityDetailFragment : Fragment() {
                                     val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm", Locale.getDefault())
                                     val date = inputFormat.parse(time)
                                     if (date != null && date >= currentTime) {
+                                        Log.d("Temperature", "Hora: ${time.substring(11, 16)}, Temperatura: $temperature")
                                         Temperature(
                                             hour = time.substring(11, 16),
                                             degrees = temperature,
                                             precipitationProbability = weatherResponse.hourly.precipitation_probability[weatherResponse.hourly.time.indexOf(time)]
                                         )
+
                                     } else {
                                         null
                                     }
@@ -99,14 +103,18 @@ class CityDetailFragment : Fragment() {
                             binding.temperatureMin2.text = "${weatherResponse.daily.temperature_2m_min} °C"
                             binding.currentTemp2.text = "${weatherResponse.current.temperature_2m} °C"
 
+                            val currentTime = Date()
+                            val formattedTime = SimpleDateFormat("HH:mm", Locale.getDefault()).format(currentTime)
+                            binding.updateAt2.text = "Updated at $formattedTime"
+
                             val maxTemperature = weatherResponse.daily.temperature_2m_max.maxOrNull()
                             maxTemperature?.let {
-                                binding.temperatureMax2.text = "${it} °C"
+                                binding.temperatureMax2.text = "$it °C"
                             }
 
                             val minTemperature = weatherResponse.daily.temperature_2m_min.minOrNull()
                             minTemperature?.let {
-                                binding.temperatureMin2.text = "${it} °C"
+                                binding.temperatureMin2.text = "$it °C"
                             }
                         }
                     }
