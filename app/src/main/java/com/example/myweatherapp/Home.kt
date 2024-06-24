@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -74,7 +73,7 @@ class Home : Fragment() {
                     forecastResponse?.let { response ->
                         val isDay = response.current.is_day == 1
 
-                        Log.d("Noche", "${isDay})")
+                        Log.d("Noche", "$isDay")
                         applyDayNightBackground(isDay)
 
                         val temperatureList = response.hourly.time.zip(response.hourly.temperature_2m)
@@ -122,9 +121,10 @@ class Home : Fragment() {
     }
 
     private fun applyDayNightBackground(isDay: Boolean) {
-        val mainContainer = binding.mainContainer
-        mainContainer.setBackgroundResource(if (isDay) R.drawable.bg_day_night else R.drawable.bg_day_night)
+        val root = binding.root
+        root.setBackgroundResource(if (isDay) R.drawable.bg_day else R.drawable.bg_night)
     }
+
     private fun updateCurrentTime() {
         val currentTime = Date()
         val formattedTime = SimpleDateFormat("HH:mm", Locale.getDefault()).format(currentTime)

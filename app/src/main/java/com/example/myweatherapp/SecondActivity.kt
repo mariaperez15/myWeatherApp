@@ -60,6 +60,7 @@ class SecondActivity : AppCompatActivity(), CityAdapter.CityClickListener {
             City("Málaga", 36.7202, -4.4203),
             City("Córdoba", 37.8916, -4.7728),
             City("Huelva", 37.2664, -6.94),
+            City("Nueva York", 40.7143, -74.006),
         )
     }
 }

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="25dp"
-    android:background="@drawable/bg_day_night"
+    android:background="@drawable/bg_day"
     android:id="@+id/detailsCity"
     tools:context=".SecondActivity">
 

@@ -45,7 +45,6 @@ class CityDetailFragment : Fragment() {
         temperatureAdapter = TemperatureAdapter(emptyList())
         binding.recycler2.adapter = temperatureAdapter
 
-        // Recuperar la ciudad seleccionada del Bundle
         val selectedCity = arguments?.getSerializable("selectedCity") as? City
         selectedCity?.let {
             fetchWeatherData(it.latitude, it.longitude)
@@ -75,6 +74,7 @@ class CityDetailFragment : Fragment() {
                         val isDay = weatherResponse.current.is_day == 1
 
                         applyDayNightBackground(isDay)
+                        Log.d("diaonoche", "${isDay}")
 
                         // Actualizar vistas en el hilo principal
                         launch(Dispatchers.Main) {
@@ -121,9 +121,10 @@ class CityDetailFragment : Fragment() {
     }
 
     private fun applyDayNightBackground(isDay: Boolean) {
-        val mainContainer = binding.mainContainer
-        mainContainer.setBackgroundResource(if (isDay) R.drawable.bg_day_night else R.drawable.bg_day_night)
+        val root = binding.root
+        root.setBackgroundResource(if (isDay) R.drawable.bg_day else R.drawable.bg_night)
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
