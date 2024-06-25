@@ -14,17 +14,8 @@
             app:destination="@id/second" />
     </fragment>
     <fragment
-        android:id="@+id/second"
-        android:name="com.example.myweatherapp.Places"
-        android:label="activitySecond"
-        tools:layout="@layout/activity_second" >
-        <action
-            android:id="@+id/action_fragment_places_to_detailsCity"
-            app:destination="@id/detailsCity" />
-    </fragment>
-    <fragment
         android:id="@+id/detailsCity"
-        android:name="com.example.myweatherapp.CityDetailFragment"
+        android:name="CityDetailFragment"
         android:label="city_details_fragment"
-        tools:layout="@layout/city_details_fragment" />
+        tools:layout="@layout/city_details_fragment"/>
 </navigation>

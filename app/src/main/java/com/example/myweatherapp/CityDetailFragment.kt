@@ -13,6 +13,8 @@ import com.example.myweatherapp.Temperature
 import com.example.myweatherapp.TemperatureAdapter
 import com.example.myweatherapp.WeatherAPIService
 import com.example.myweatherapp.databinding.CityDetailsFragmentBinding
+import data.CityDatabase
+import data.CityEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Retrofit
@@ -27,6 +29,7 @@ class CityDetailFragment : Fragment() {
     private lateinit var apiService: WeatherAPIService
     private lateinit var temperatureAdapter: TemperatureAdapter
     private var isHeartSelected = false
+    private lateinit var cityDatabase: CityDatabase
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,10 +42,8 @@ class CityDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.heartIcon.setOnClickListener {
-            isHeartSelected = !isHeartSelected
-            binding.heartIcon.isSelected = isHeartSelected
-        }
+        cityDatabase = CityDatabase.getDatabase(requireContext())
+
 
         val retrofit = Retrofit.Builder()
             .baseUrl("https://api.open-meteo.com/")
@@ -57,6 +58,19 @@ class CityDetailFragment : Fragment() {
         selectedCity?.let {
             fetchWeatherData(it.latitude, it.longitude)
             binding.cityName2.text = it.name // Actualizar el nombre de la ciudad en la interfaz de usuario
+        }
+
+        binding.heartIcon.setOnClickListener {
+            isHeartSelected = !isHeartSelected
+            binding.heartIcon.isSelected = isHeartSelected
+
+            if (isHeartSelected) {
+                selectedCity?.let {
+                    saveCityData(it)
+                }
+            } else {
+                // Implementa la lógica para eliminar la ciudad de la base de datos si se deselecciona
+            }
         }
     }
 
@@ -138,6 +152,24 @@ class CityDetailFragment : Fragment() {
     private fun applyDayNightBackground(isDay: Boolean) {
         val root = binding.root
         root.setBackgroundResource(if (isDay) R.drawable.bg_day else R.drawable.bg_night)
+    }
+
+    private fun saveCityData(selectedCity: City) {
+        val cityEntity = CityEntity(
+            name = binding.cityName2.text.toString(),
+            latitude = selectedCity.latitude,
+            longitude = selectedCity.longitude,
+            currentTemperature = binding.currentTemp2.text.toString().removeSuffix(" °C").toDouble(),
+            minTemperature = binding.temperatureMin2.text.toString().removeSuffix(" °C").toDouble(),
+            maxTemperature = binding.temperatureMax2.text.toString().removeSuffix(" °C").toDouble(),
+            precipitation = binding.rain2.text.toString().removeSuffix(" mm").toDouble(),
+            updatedAt = binding.updateAt2.text.toString()
+        )
+
+        lifecycleScope.launch(Dispatchers.IO) {
+            Log.d("CityDetailFragment", "Saving city data: $cityEntity")
+            cityDatabase.cityDao().insertCity(cityEntity)
+        }
     }
 
 
