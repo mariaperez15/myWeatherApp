@@ -56,7 +56,6 @@ class SecondActivity : AppCompatActivity(), CityAdapter.CityClickListener {
     }
 
     private fun fetchCities(): List<City> {
-        // Aquí deberías obtener la lista de ciudades desde algún origen (base de datos, servicio, etc.)
         return listOf(
             City("Burgos", 42.3411, -3.7018),
             City("Barcelona", 41.3888, 2.159),

@@ -38,18 +38,6 @@ class CityDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-
-        val selectedCity = arguments?.getSerializable("selectedCity") as? City
-        selectedCity?.let {
-            (activity as? AppCompatActivity)?.supportActionBar?.apply {
-                title = it.name // Establecer el nombre de la ciudad como título
-                setDisplayHomeAsUpEnabled(true)
-            }
-            fetchWeatherData(it.latitude, it.longitude)
-            binding.cityName2.text = it.name // Actualizar el nombre de la ciudad en la interfaz de usuario
-        }
-
         val retrofit = Retrofit.Builder()
             .baseUrl("https://api.open-meteo.com/")
             .addConverterFactory(GsonConverterFactory.create())
@@ -59,6 +47,11 @@ class CityDetailFragment : Fragment() {
         temperatureAdapter = TemperatureAdapter(emptyList())
         binding.recycler2.adapter = temperatureAdapter
 
+        val selectedCity = arguments?.getSerializable("selectedCity") as? City
+        selectedCity?.let {
+            fetchWeatherData(it.latitude, it.longitude)
+            binding.cityName2.text = it.name // Actualizar el nombre de la ciudad en la interfaz de usuario
+        }
     }
 
     @SuppressLint("SetTextI18n")
