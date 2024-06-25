@@ -38,6 +38,7 @@ class Places : Fragment(), CityAdapter.CityClickListener {
         cityDao = CityDatabase.getDatabase(requireContext()).cityDao()
 
         setupRecyclerView()
+        observeCityDeletion()
         loadCitiesFromDatabase()
     }
 
@@ -57,6 +58,31 @@ class Places : Fragment(), CityAdapter.CityClickListener {
             Log.d("prueba", "Número de ciudades recuperadas: ${cities.size}")
             withContext(Dispatchers.Main) {
                 adapter.updateCities(cities)
+
+                // Verificar si la lista de ciudades está vacía
+                if (cities.isEmpty()) {
+                    binding.recyclerFav.visibility = View.GONE
+                    binding.noCitiesText.visibility = View.VISIBLE
+                } else {
+                    binding.recyclerFav.visibility = View.VISIBLE
+                    binding.noCitiesText.visibility = View.GONE
+                }
+            }
+        }
+    }
+
+
+    private fun observeCityDeletion() {
+        parentFragmentManager.setFragmentResultListener("cityDeleted", viewLifecycleOwner) { _, bundle ->
+            val deletedCityId = bundle.getInt("deletedCityId")
+            adapter.removeCityById(deletedCityId)
+
+            val itemCount = adapter.itemCount
+            Log.d("CityDeletion", "Number of items in adapter: $itemCount")
+
+            if (itemCount == 0) {
+                binding.recyclerFav.visibility = View.GONE
+                binding.noCitiesText.visibility = View.VISIBLE
             }
         }
     }

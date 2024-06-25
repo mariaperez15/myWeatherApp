@@ -1,9 +1,11 @@
 package data
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.example.myweatherapp.City
 
 @Dao
 interface CityDao {
@@ -22,4 +24,6 @@ interface CityDao {
 
     @Query("DELETE FROM cities WHERE id = :id")
     suspend fun deleteCityById(id: Int)
+    @Delete
+    suspend fun deleteCity(city: CityEntity)
 }

@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResult
 import androidx.lifecycle.lifecycleScope
 import com.example.myweatherapp.databinding.FavCityDetailsFragmentBinding
 import data.CityDao
@@ -20,6 +21,7 @@ class FavCityDetailFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var cityDao: CityDao
+    private var selectedCityEntity: CityEntity? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,12 +39,24 @@ class FavCityDetailFragment : Fragment() {
         val selectedCity = arguments?.getSerializable("selectedCity") as? City
         selectedCity?.let { city ->
             lifecycleScope.launch {
-                val cityEntity = withContext(Dispatchers.IO) {
+                selectedCityEntity = withContext(Dispatchers.IO) {
                     cityDao.getCityByName(city.name)
                 }
-                cityEntity?.let {
+                selectedCityEntity?.let {
                     displayCityDetails(it)
                 }
+            }
+        }
+
+        binding.heartIcon.setOnClickListener {
+            selectedCityEntity?.let { cityEntity ->
+                lifecycleScope.launch(Dispatchers.IO) {
+                    cityDao.deleteCity(cityEntity)
+                }
+                requireActivity().supportFragmentManager.popBackStack()
+                setFragmentResult("cityDeleted", Bundle().apply {
+                    putInt("deletedCityId", cityEntity.id)
+                })
             }
         }
     }
@@ -51,10 +65,10 @@ class FavCityDetailFragment : Fragment() {
     private fun displayCityDetails(cityEntity: CityEntity) {
         binding.FavCityNameDetails.text = cityEntity.name
         binding.favCurrentTemp.text = "${cityEntity.currentTemperature} °C"
-        binding.favTempMin.text = "${cityEntity.minTemperature} °C"
-        binding.favTempMax.text = "${cityEntity.maxTemperature} °C"
+        binding.favTemperatureMax.text = "${cityEntity.minTemperature} °C"
+        binding.favTemperatureMin.text = "${cityEntity.maxTemperature} °C"
         binding.favRainText.text = "${cityEntity.precipitation} mm"
-        binding.favUpdateAt.text = "Updated at ${cityEntity.updatedAt}"
+        binding.favUpdateAt.text = cityEntity.updatedAt
     }
 
     override fun onDestroyView() {

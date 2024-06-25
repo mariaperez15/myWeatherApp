@@ -33,6 +33,11 @@ class CityEntityAdapter(
         notifyDataSetChanged()
     }
 
+    fun removeCityById(cityId: Int) {
+        cities = cities.filter { it.id != cityId }
+        notifyDataSetChanged()
+    }
+
     inner class CityEntityViewHolder(private val binding: FavItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(cityEntity: CityEntity) {

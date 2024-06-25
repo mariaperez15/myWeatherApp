@@ -27,17 +27,18 @@
             android:layout_marginTop="20dp" />
 
         <ImageView
-            android:id="@+id/favHeartIcon"
+            android:id="@+id/heartIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/heart_button_selector"
-            android:contentDescription="@string/heart_icon_description"
+            android:src="@drawable/ic_heart_strike_through"
+            android:contentDescription="@string/close_icon"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:layout_toEndOf="@id/FavCityNameDetails"
             android:layout_alignBaseline="@id/FavCityNameDetails"
             android:layout_marginStart="60dp"
             android:layout_marginTop="-18dp"
-            android:clickable="true"/>
+            android:clickable="true"
+            android:onClick="onDeleteIconClicked"/>
 
 
         <LinearLayout
@@ -84,7 +85,7 @@
                 android:layout_marginTop="30dp">
 
                 <TextView
-                    android:id="@+id/favTemp_min"
+                    android:id="@+id/favTempMinText"
                     android:text="Min temp"
                     android:textSize="17sp"
                     android:layout_width="wrap_content"
@@ -97,7 +98,7 @@
                 </Space>
 
                 <TextView
-                    android:id="@+id/favTemp_max"
+                    android:id="@+id/favTempMaxText"
                     android:text="Max temp"
                     android:textSize="17sp"
                     android:layout_width="wrap_content"
@@ -116,7 +117,7 @@
                     android:text="Min Temp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/favTemp_min"
+                    android:layout_below="@id/favTempMinText"
                     android:textStyle="bold">
                 </TextView>
                 <Space
@@ -130,7 +131,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    android:layout_below="@id/favTemp_max">
+                    android:layout_below="@id/favTempMaxText">
                 </TextView>
             </LinearLayout>
         </LinearLayout>
