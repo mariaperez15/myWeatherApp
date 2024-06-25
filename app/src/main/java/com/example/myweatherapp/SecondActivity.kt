@@ -87,7 +87,10 @@ class SecondActivity : AppCompatActivity(), CityAdapter.CityClickListener {
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
-        finish()
+        if (supportFragmentManager.backStackEntryCount > 0) {
+            supportFragmentManager.popBackStack()
+        } else {
+            super.onBackPressed()
+        }
     }
 }
