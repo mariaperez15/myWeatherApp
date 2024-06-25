@@ -1,11 +1,13 @@
 package com.example.myweatherapp
 
 import android.os.Bundle
+import android.text.TextUtils.replace
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.commit
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myweatherapp.databinding.FragmentPlacesBinding
 import data.CityDao
@@ -65,7 +67,17 @@ class Places : Fragment(), CityAdapter.CityClickListener {
     }
 
     override fun onCityClicked(city: City) {
-        // Implementa la lógica que desees al hacer clic en una ciudad
-        // Por ejemplo, podrías abrir detalles de la ciudad o realizar alguna acción.
+        val fragment = FavCityDetailFragment()
+        val bundle = Bundle().apply {
+            putSerializable("selectedCity", city)
+            putString("cityName", city.name)
+        }
+        fragment.arguments = bundle
+
+        parentFragmentManager.commit {
+            replace(R.id.detailsCity2, fragment)
+            addToBackStack(null)
+        }
     }
+
 }

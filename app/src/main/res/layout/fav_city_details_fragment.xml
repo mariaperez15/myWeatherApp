@@ -7,18 +7,18 @@
     android:orientation="vertical"
     android:padding="25dp"
     android:background="@drawable/bg_day"
-    android:id="@+id/detailsCity"
-    tools:context=".SecondActivity">
+    android:id="@+id/FavDetailsCity"
+    tools:context=".MainActivity">
 
     <RelativeLayout
-        android:id="@+id/mainContainer"
+        android:id="@+id/mainContainerFav"
         android:visibility="visible"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
 
         <TextView
-            android:id="@+id/cityName2"
+            android:id="@+id/FavCityNameDetails"
             android:textSize="24sp"
             android:text="Location"
             android:layout_width="wrap_content"
@@ -27,29 +27,29 @@
             android:layout_marginTop="20dp" />
 
         <ImageView
-            android:id="@+id/heartIcon"
+            android:id="@+id/favHeartIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/heart_button_selector"
             android:contentDescription="@string/heart_icon_description"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:layout_toEndOf="@id/cityName2"
-            android:layout_alignBaseline="@id/cityName2"
+            android:layout_toEndOf="@id/FavCityNameDetails"
+            android:layout_alignBaseline="@id/FavCityNameDetails"
             android:layout_marginStart="60dp"
             android:layout_marginTop="-18dp"
             android:clickable="true"/>
 
 
         <LinearLayout
-            android:id="@+id/addressContainer2"
+            android:id="@+id/favAddressContainer"
             android:orientation="vertical"
             android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/cityName2">
+            android:layout_below="@id/FavCityNameDetails">
 
             <TextView
-                android:id="@+id/update_at2"
+                android:id="@+id/favUpdate_at"
                 android:textSize="14sp"
                 android:text="Updated at"
                 android:layout_width="wrap_content"
@@ -59,7 +59,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/overviewContainer2"
+            android:id="@+id/favOverviewContainer"
             android:orientation="vertical"
             android:layout_centerInParent="true"
             android:layout_width="match_parent"
@@ -67,7 +67,7 @@
 
 
             <TextView
-                android:id="@+id/currentTemp2"
+                android:id="@+id/favCurrentTemp"
                 android:textSize="90sp"
                 android:fontFamily="sans-serif-thin"
                 android:layout_gravity="center"
@@ -84,7 +84,7 @@
                 android:layout_marginTop="30dp">
 
                 <TextView
-                    android:id="@+id/temp_min2"
+                    android:id="@+id/favTemp_min"
                     android:text="Min temp"
                     android:textSize="17sp"
                     android:layout_width="wrap_content"
@@ -97,7 +97,7 @@
                 </Space>
 
                 <TextView
-                    android:id="@+id/temp_max2"
+                    android:id="@+id/favTemp_max"
                     android:text="Max temp"
                     android:textSize="17sp"
                     android:layout_width="wrap_content"
@@ -111,12 +111,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp">
                 <TextView
-                    android:id="@+id/temperatureMin2"
+                    android:id="@+id/favTemperatureMin"
                     android:textSize="18sp"
                     android:text="Min Temp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/temp_min2"
+                    android:layout_below="@id/favTemp_min"
                     android:textStyle="bold">
                 </TextView>
                 <Space
@@ -124,13 +124,13 @@
                     android:layout_height="wrap_content">
                 </Space>
                 <TextView
-                    android:id="@+id/temperatureMax2"
+                    android:id="@+id/favTemperatureMax"
                     android:text="Max Temp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    android:layout_below="@id/temp_max">
+                    android:layout_below="@id/favTemp_max">
                 </TextView>
             </LinearLayout>
         </LinearLayout>
@@ -140,19 +140,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_below="@id/cityName2"
+            android:layout_below="@id/FavCityNameDetails"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="50dp">
 
             <ImageView
-                android:id="@+id/imageRain2"
+                android:id="@+id/favImageRain"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:src="@drawable/paraguas"
                 android:layout_marginEnd="8dp" />
 
             <TextView
-                android:id="@+id/rain2"
+                android:id="@+id/favRainText"
                 android:text="Rain"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -163,7 +163,7 @@
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler2"
+            android:id="@+id/favRecyclerDetails"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -174,14 +174,14 @@
             tools:listitem="@layout/temperature_item"/>
 
         <ProgressBar
-            android:id="@+id/loader2"
+            android:id="@+id/favLoader"
             android:layout_centerInParent="true"
             android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <TextView
-            android:id="@+id/weatherInfoTextView2"
+            android:id="@+id/favWeatherInfoTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
@@ -189,7 +189,7 @@
             android:textColor="@android:color/white" />
 
         <TextView
-            android:id="@+id/errortext2"
+            android:id="@+id/favErrortext"
             android:layout_centerInParent="true"
             android:text="Algo ha ido mal"
             android:visibility="gone"

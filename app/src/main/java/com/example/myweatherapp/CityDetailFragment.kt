@@ -155,22 +155,33 @@ class CityDetailFragment : Fragment() {
     }
 
     private fun saveCityData(selectedCity: City) {
-        val cityEntity = CityEntity(
-            name = binding.cityName2.text.toString(),
-            latitude = selectedCity.latitude,
-            longitude = selectedCity.longitude,
-            currentTemperature = binding.currentTemp2.text.toString().removeSuffix(" °C").toDouble(),
-            minTemperature = binding.temperatureMin2.text.toString().removeSuffix(" °C").toDouble(),
-            maxTemperature = binding.temperatureMax2.text.toString().removeSuffix(" °C").toDouble(),
-            precipitation = binding.rain2.text.toString().removeSuffix(" mm").toDouble(),
-            updatedAt = binding.updateAt2.text.toString()
-        )
+        val cityName = binding.cityName2.text.toString()
 
         lifecycleScope.launch(Dispatchers.IO) {
-            Log.d("CityDetailFragment", "Saving city data: $cityEntity")
-            cityDatabase.cityDao().insertCity(cityEntity)
+            val existingCity = cityDatabase.cityDao().getCityByName(cityName)
+
+            if (existingCity == null) {
+                // La ciudad no está en la base de datos, se puede guardar
+                val cityEntity = CityEntity(
+                    name = cityName,
+                    latitude = selectedCity.latitude,
+                    longitude = selectedCity.longitude,
+                    currentTemperature = binding.currentTemp2.text.toString().removeSuffix(" °C").toDouble(),
+                    minTemperature = binding.temperatureMin2.text.toString().removeSuffix(" °C").toDouble(),
+                    maxTemperature = binding.temperatureMax2.text.toString().removeSuffix(" °C").toDouble(),
+                    precipitation = binding.rain2.text.toString().removeSuffix(" mm").toDouble(),
+                    updatedAt = binding.updateAt2.text.toString()
+                )
+
+                Log.d("CityDetailFragment", "Saving city data: $cityEntity")
+                cityDatabase.cityDao().insertCity(cityEntity)
+            } else {
+                // La ciudad ya está en la base de datos, no hacer nada o manejar según tus necesidades
+                Log.d("CityDetailFragment", "City $cityName already exists in database")
+            }
         }
     }
+
 
 
     override fun onDestroyView() {

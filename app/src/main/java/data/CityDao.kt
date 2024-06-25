@@ -11,6 +11,9 @@ interface CityDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertCity(city: CityEntity)
 
+    @Query("SELECT * FROM cities WHERE name = :name LIMIT 1")
+    suspend fun getCityByName(name: String): CityEntity?
+
     @Query("SELECT * FROM cities WHERE id = :id")
     suspend fun getCityById(id: Int): CityEntity?
 
