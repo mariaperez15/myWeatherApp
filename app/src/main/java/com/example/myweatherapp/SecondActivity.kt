@@ -3,6 +3,7 @@ package com.example.myweatherapp
 import CityDetailFragment
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.commit
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myweatherapp.databinding.ActivitySecondBinding
@@ -21,11 +22,17 @@ class SecondActivity : AppCompatActivity(), CityAdapter.CityClickListener {
         binding = ActivitySecondBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val toolbar: Toolbar = findViewById(R.id.toolBar)
+        setSupportActionBar(toolbar)
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         cities = fetchCities()
 
         binding.recycler.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         cityAdapter = CityAdapter(cities, this)
         binding.recycler.adapter = cityAdapter
+
 
         val retrofit = Retrofit.Builder()
             .baseUrl("https://api.open-meteo.com/")
@@ -62,5 +69,25 @@ class SecondActivity : AppCompatActivity(), CityAdapter.CityClickListener {
             City("Huelva", 37.2664, -6.94),
             City("Nueva York", 40.7143, -74.006),
         )
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: android.view.MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
     }
 }
