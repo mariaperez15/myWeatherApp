@@ -40,9 +40,14 @@ class CityDetailFragment : Fragment() {
 
 
 
-        (activity as? AppCompatActivity)?.supportActionBar?.apply {
-            title = ""
-            setDisplayHomeAsUpEnabled(true)
+        val selectedCity = arguments?.getSerializable("selectedCity") as? City
+        selectedCity?.let {
+            (activity as? AppCompatActivity)?.supportActionBar?.apply {
+                title = it.name // Establecer el nombre de la ciudad como título
+                setDisplayHomeAsUpEnabled(true)
+            }
+            fetchWeatherData(it.latitude, it.longitude)
+            binding.cityName2.text = it.name // Actualizar el nombre de la ciudad en la interfaz de usuario
         }
 
         val retrofit = Retrofit.Builder()
@@ -54,11 +59,6 @@ class CityDetailFragment : Fragment() {
         temperatureAdapter = TemperatureAdapter(emptyList())
         binding.recycler2.adapter = temperatureAdapter
 
-        val selectedCity = arguments?.getSerializable("selectedCity") as? City
-        selectedCity?.let {
-            fetchWeatherData(it.latitude, it.longitude)
-            binding.cityName2.text = it.name // Actualizar el nombre de la ciudad en la interfaz de usuario
-        }
     }
 
     @SuppressLint("SetTextI18n")

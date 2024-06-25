@@ -24,7 +24,7 @@ class SecondActivity : AppCompatActivity(), CityAdapter.CityClickListener {
 
         val toolbar: Toolbar = findViewById(R.id.toolBar)
         setSupportActionBar(toolbar)
-
+        supportActionBar?.title = "Ciudades"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         cities = fetchCities()
@@ -47,6 +47,7 @@ class SecondActivity : AppCompatActivity(), CityAdapter.CityClickListener {
             putSerializable("selectedCity", city)
         }
         fragment.arguments = bundle
+        supportActionBar?.title = city.name
 
         supportFragmentManager.commit {
             replace(R.id.detailsCity, fragment)
@@ -89,8 +90,10 @@ class SecondActivity : AppCompatActivity(), CityAdapter.CityClickListener {
     override fun onBackPressed() {
         if (supportFragmentManager.backStackEntryCount > 0) {
             supportFragmentManager.popBackStack()
+            supportActionBar?.title = "Ciudades"
         } else {
             super.onBackPressed()
         }
     }
+
 }
