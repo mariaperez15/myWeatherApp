@@ -26,6 +26,7 @@ class CityDetailFragment : Fragment() {
 
     private lateinit var apiService: WeatherAPIService
     private lateinit var temperatureAdapter: TemperatureAdapter
+    private var isHeartSelected = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,6 +38,11 @@ class CityDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.heartIcon.setOnClickListener {
+            isHeartSelected = !isHeartSelected
+            binding.heartIcon.isSelected = isHeartSelected
+        }
 
         val retrofit = Retrofit.Builder()
             .baseUrl("https://api.open-meteo.com/")

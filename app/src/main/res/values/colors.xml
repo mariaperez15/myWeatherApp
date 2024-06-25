@@ -4,4 +4,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="colorLightBlue">#00D3FF</color> <!-- Azul claro -->
     <color name="colorDarkBlue">#102C54</color> <!-- Azul oscuro -->
+    <color name="red">#FF0000</color>
 </resources>
