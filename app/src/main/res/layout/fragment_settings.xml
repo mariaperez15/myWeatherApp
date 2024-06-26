@@ -1,8 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
+<!-- activity_main.xml -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/colorDarkBlue"
     android:padding="16dp">
 
     <TextView
@@ -10,13 +11,17 @@
         android:layout_height="wrap_content"
         android:text="Update Frequency:"
         android:textSize="18sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:textColor="@android:color/white" />
 
     <Spinner
         android:id="@+id/updateFrequencySpinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/custom_spinner_background"
         style="@style/SpinnerDropDownStyle"
-        android:entries="@array/update_frequency_options" />
+        android:entries="@array/update_frequency_options"
+        android:gravity="end"
+        android:textColor="@android:color/white" />
 
 </LinearLayout>

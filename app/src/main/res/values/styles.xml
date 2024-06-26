@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="SpinnerDropDownStyle">
-        <item name="android:popupBackground">@android:color/black</item>
+        <item name="android:popupBackground">@color/blueButton</item>
+        <item name="android:textColor">@color/blueButton</item>
     </style>
 </resources>
