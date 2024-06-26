@@ -38,21 +38,33 @@
         tools:layout_editor_absoluteX="0dp" />
 
     <!-- TextView para mostrar mensaje cuando no hay ciudades favoritas -->
-    <TextView
-        android:id="@+id/noCitiesText"
-        android:layout_width="wrap_content"
+    <!-- CardView para mostrar el mensaje cuando no hay ciudades favoritas -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewNoCities"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="¡Aún no hay ciudades añadidas a favoritos!"
-        android:textSize="24sp"
-        android:textColor="@android:color/white"
-        android:textStyle="bold"
-        android:layout_gravity="center"
-        android:visibility="gone"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="16dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="4dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="gone">
 
+        <!-- Contenido dentro del CardView -->
+        <TextView
+            android:id="@+id/noCitiesText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="¡Aún no hay ciudades añadidas a favoritos!"
+            android:textSize="20sp"
+            android:textColor="@android:color/black"
+            android:layout_gravity="center"
+            android:layout_margin="16dp"
+            android:visibility="gone" />
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
