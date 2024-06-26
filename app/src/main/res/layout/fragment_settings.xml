@@ -12,7 +12,8 @@
         android:text="Update Frequency"
         android:textSize="16sp"
         android:textStyle="bold"
-        android:textColor="@android:color/white" />
+        android:textColor="@android:color/white"
+        android:layout_marginTop="20dp"/>
 
     <Spinner
         android:id="@+id/updateFrequencySpinner"
@@ -29,7 +30,8 @@
         android:layout_height="wrap_content"
         android:textSize="16sp"
         android:textStyle="bold"
-        android:text="Selecciona la ciudad por defecto" />
+        android:text="Selecciona la ciudad por defecto"
+        android:layout_marginTop="40dp" />
 
     <Spinner
         android:id="@+id/citySpinner"
