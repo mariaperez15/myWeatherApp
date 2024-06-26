@@ -45,6 +45,22 @@ android {
     buildFeatures{
         viewBinding = true
     }
+    flavorDimensions += "version"
+
+    productFlavors {
+
+        create("free") {
+            dimension = "version"
+            applicationIdSuffix = ".free"
+            versionNameSuffix = "-free"
+        }
+
+        create("premium") {
+            dimension = "version"
+            applicationIdSuffix = ".premium"
+            versionNameSuffix = "-premium"
+        }
+    }
 }
 
 
