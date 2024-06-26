@@ -1,7 +1,5 @@
 package com.example.myweatherapp
 
-import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +14,7 @@ import kotlinx.coroutines.launch
 class Settings : Fragment() {
 
     private lateinit var updateFrequencySpinner: Spinner
+    private lateinit var citySpinner: Spinner
     private lateinit var dataStoreManager: DataStoreManager
 
     override fun onCreateView(
@@ -26,13 +25,19 @@ class Settings : Fragment() {
 
         dataStoreManager = DataStoreManager(requireContext())
         updateFrequencySpinner = view.findViewById(R.id.updateFrequencySpinner)
+        citySpinner = view.findViewById(R.id.citySpinner)
 
-        setupSpinner()
+        setupSpinners()
 
         return view
     }
 
-    private fun setupSpinner() {
+    private fun setupSpinners() {
+        setupUpdateFrequencySpinner()
+        setupCitySpinner()
+    }
+
+    private fun setupUpdateFrequencySpinner() {
         val options = resources.getStringArray(R.array.update_frequency_options)
         val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, options)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -52,6 +57,38 @@ class Settings : Fragment() {
                 val selectedFrequency = options[position]
                 lifecycleScope.launch {
                     dataStoreManager.setUpdateFrequency(selectedFrequency)
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                // Not implemented
+            }
+        }
+    }
+
+    private fun setupCitySpinner() {
+        val cityNames = resources.getStringArray(R.array.city_names)
+        val cityCoordinates = resources.getStringArray(R.array.city_coordinates)
+        val cityAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, cityNames)
+        cityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        citySpinner.adapter = cityAdapter
+
+        lifecycleScope.launch {
+            dataStoreManager.selectedCity.collect { selectedCity ->
+                val position = cityNames.indexOf(selectedCity)
+                if (position >= 0) {
+                    citySpinner.setSelection(position)
+                }
+            }
+        }
+
+        citySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                val selectedCity = cityNames[position]
+                val selectedCoordinates = cityCoordinates[position].split(",").map { it.toDouble() }
+                lifecycleScope.launch {
+                    dataStoreManager.setSelectedCity(selectedCity)
+                    dataStoreManager.setSelectedCityCoordinates(selectedCoordinates[0], selectedCoordinates[1])
                 }
             }
 

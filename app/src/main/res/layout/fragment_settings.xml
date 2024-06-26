@@ -9,8 +9,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Update Frequency:"
-        android:textSize="18sp"
+        android:text="Update Frequency"
+        android:textSize="16sp"
         android:textStyle="bold"
         android:textColor="@android:color/white" />
 
@@ -21,6 +21,23 @@
         android:background="@drawable/custom_spinner_background"
         style="@style/SpinnerDropDownStyle"
         android:entries="@array/update_frequency_options"
+        android:gravity="end"
+        android:textColor="@android:color/white" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:text="Selecciona la ciudad por defecto" />
+
+    <Spinner
+        android:id="@+id/citySpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/custom_spinner_background"
+        style="@style/SpinnerDropDownStyle"
+        android:entries="@array/city_names"
         android:gravity="end"
         android:textColor="@android:color/white" />
 
