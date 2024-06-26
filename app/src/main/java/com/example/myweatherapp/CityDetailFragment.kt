@@ -4,6 +4,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -171,7 +172,7 @@ class CityDetailFragment : Fragment() {
             val existingCity = cityDatabase.cityDao().getCityByName(cityName)
 
             if (existingCity == null) {
-                // La ciudad no está en la base de datos, se puede guardar
+                showToast("$cityName añadida a favoritos")
                 val cityEntity = CityEntity(
                     name = cityName,
                     latitude = selectedCity.latitude,
@@ -183,12 +184,16 @@ class CityDetailFragment : Fragment() {
                     updatedAt = binding.updateAt2.text.toString()
                 )
 
-                Log.d("CityDetailFragment", "Saving city data: $cityEntity")
                 cityDatabase.cityDao().insertCity(cityEntity)
             } else {
-                // La ciudad ya está en la base de datos, no hacer nada o manejar según tus necesidades
-                Log.d("CityDetailFragment", "City $cityName already exists in database")
+                showToast("$cityName ya está en favoritos")
             }
+        }
+    }
+
+    private fun showToast(message: String) {
+        requireActivity().runOnUiThread {
+            Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
         }
     }
 
