@@ -30,6 +30,7 @@ class MainActivity : AppCompatActivity() {
             when(it.itemId){
                 R.id.home -> replaceFragment(Home())
                 R.id.places -> replaceFragment(Places())
+                R.id.settings -> replaceFragment(Settings())
 
                 else -> {
                 }
