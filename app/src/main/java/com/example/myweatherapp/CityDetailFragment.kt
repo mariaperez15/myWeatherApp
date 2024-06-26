@@ -4,9 +4,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.myweatherapp.City
 import com.example.myweatherapp.R
 import com.example.myweatherapp.Temperature
@@ -28,8 +28,10 @@ class CityDetailFragment : Fragment() {
 
     private lateinit var apiService: WeatherAPIService
     private lateinit var temperatureAdapter: TemperatureAdapter
-    private var isHeartSelected = false
     private lateinit var cityDatabase: CityDatabase
+
+    private var selectedCity: City? = null
+    private var isHeartSelected = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,7 +46,6 @@ class CityDetailFragment : Fragment() {
 
         cityDatabase = CityDatabase.getDatabase(requireContext())
 
-
         val retrofit = Retrofit.Builder()
             .baseUrl("https://api.open-meteo.com/")
             .addConverterFactory(GsonConverterFactory.create())
@@ -54,10 +55,10 @@ class CityDetailFragment : Fragment() {
         temperatureAdapter = TemperatureAdapter(emptyList())
         binding.recycler2.adapter = temperatureAdapter
 
-        val selectedCity = arguments?.getSerializable("selectedCity") as? City
-        selectedCity?.let {
-            fetchWeatherData(it.latitude, it.longitude)
-            binding.cityName2.text = it.name // Actualizar el nombre de la ciudad en la interfaz de usuario
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            selectedCity?.let {
+                fetchWeatherData(it.latitude, it.longitude)
+            }
         }
 
         binding.heartIcon.setOnClickListener {
@@ -70,6 +71,14 @@ class CityDetailFragment : Fragment() {
                 }
             } else {
                 // Implementa la lógica para eliminar la ciudad de la base de datos si se deselecciona
+            }
+        }
+
+        arguments?.let { args ->
+            selectedCity = args.getSerializable("selectedCity") as? City
+            selectedCity?.let {
+                binding.cityName2.text = it.name // Actualizar el nombre de la ciudad en la interfaz de usuario
+                fetchWeatherData(it.latitude, it.longitude)
             }
         }
     }
@@ -97,7 +106,6 @@ class CityDetailFragment : Fragment() {
                         val isDay = weatherResponse.current.is_day == 1
 
                         applyDayNightBackground(isDay)
-                        Log.d("diaonoche", "$isDay")
 
                         // Actualizar vistas en el hilo principal
                         launch(Dispatchers.Main) {
@@ -137,6 +145,8 @@ class CityDetailFragment : Fragment() {
                             minTemperature?.let {
                                 binding.temperatureMin2.text = "$it °C"
                             }
+
+                            binding.swipeRefreshLayout.isRefreshing = false
                         }
                     }
                 } else {
@@ -181,8 +191,6 @@ class CityDetailFragment : Fragment() {
             }
         }
     }
-
-
 
     override fun onDestroyView() {
         super.onDestroyView()

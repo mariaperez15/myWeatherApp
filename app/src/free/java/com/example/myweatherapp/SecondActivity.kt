@@ -23,6 +23,12 @@ class SecondActivity : AppCompatActivity() {
         backButton.setOnClickListener {
             navigateBackToHome()
         }
+
+        val infoButton = findViewById<View>(R.id.infoButton)
+        infoButton.setOnClickListener {
+            val dialog = DialogFragment()
+            dialog.show(supportFragmentManager, "DialogFragment")
+        }
     }
 
     private fun navigateBackToHome() {

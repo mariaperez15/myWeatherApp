@@ -1,21 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/swipeRefreshLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="25dp"
-    android:background="@drawable/bg_day"
-    android:id="@+id/detailsCity"
-    tools:context=".SecondActivity">
+    android:background="@drawable/bg_day">
 
     <RelativeLayout
         android:id="@+id/mainContainer"
-        android:visibility="visible"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
+        android:layout_height="match_parent"
+        android:padding="25dp">
 
         <TextView
             android:id="@+id/cityName2"
@@ -39,7 +36,6 @@
             android:layout_marginTop="-18dp"
             android:clickable="true"/>
 
-
         <LinearLayout
             android:id="@+id/addressContainer2"
             android:orientation="vertical"
@@ -53,9 +49,7 @@
                 android:textSize="14sp"
                 android:text="Updated at"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-            </TextView>
-
+                android:layout_height="wrap_content" />
         </LinearLayout>
 
         <LinearLayout
@@ -65,16 +59,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-
             <TextView
                 android:id="@+id/currentTemp2"
                 android:textSize="90sp"
                 android:fontFamily="sans-serif-thin"
-                android:layout_gravity="center"
                 android:text="24ºC"
+                android:layout_gravity="center"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-            </TextView>
+                android:layout_height="wrap_content" />
 
             <LinearLayout
                 android:orientation="horizontal"
@@ -88,50 +80,46 @@
                     android:text="Min temp"
                     android:textSize="17sp"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-                </TextView>
+                    android:layout_height="wrap_content" />
 
                 <Space
                     android:layout_width="50dp"
-                    android:layout_height="wrap_content">
-                </Space>
+                    android:layout_height="wrap_content"/>
 
                 <TextView
                     android:id="@+id/temp_max2"
                     android:text="Max temp"
                     android:textSize="17sp"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-                </TextView>
+                    android:layout_height="wrap_content" />
             </LinearLayout>
+
             <LinearLayout
                 android:orientation="horizontal"
                 android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp">
+
                 <TextView
                     android:id="@+id/temperatureMin2"
                     android:textSize="18sp"
                     android:text="Min Temp"
+                    android:textStyle="bold"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/temp_min2"
-                    android:textStyle="bold">
-                </TextView>
+                    android:layout_height="wrap_content" />
+
                 <Space
                     android:layout_width="55dp"
-                    android:layout_height="wrap_content">
-                </Space>
+                    android:layout_height="wrap_content"/>
+
                 <TextView
                     android:id="@+id/temperatureMax2"
                     android:text="Max Temp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    android:layout_below="@id/temp_max">
-                </TextView>
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
             </LinearLayout>
         </LinearLayout>
 
@@ -154,12 +142,10 @@
             <TextView
                 android:id="@+id/rain2"
                 android:text="Rain"
+                android:textSize="18sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:gravity="center_vertical">
-            </TextView>
-
+                android:gravity="center_vertical" />
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
@@ -197,6 +183,4 @@
             android:layout_height="wrap_content" />
     </RelativeLayout>
 
-</FrameLayout>
-
-
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
