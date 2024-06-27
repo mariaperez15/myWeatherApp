@@ -15,12 +15,3 @@ interface WeatherAPIService {
         @Query("daily") dailyParams: String
     ): Response<WeatherResponse>
 }
-
-
-//@GET("/v1/forecast")
-//suspend fun getForecast(
-//    @Query("latitude") latitude: Double,
-//    @Query("longitude") longitude: Double,
-//    @Query("current") current: String,
-//    @Query("daily") daily: String
-//): ForecastResponse

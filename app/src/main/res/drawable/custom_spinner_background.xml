@@ -1,6 +1,4 @@
-<!-- custom_spinner_background.xml -->
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- Fondo del Spinner (puedes ajustar esto según tu diseño) -->
     <item android:drawable="@color/colorDarkBlue" />
 
     <!-- Icono de despliegue (flecha) -->

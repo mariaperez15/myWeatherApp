@@ -37,8 +37,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         tools:layout_editor_absoluteX="0dp" />
 
-    <!-- TextView para mostrar mensaje cuando no hay ciudades favoritas -->
-    <!-- CardView para mostrar el mensaje cuando no hay ciudades favoritas -->
+    <!-- TextView & CardView para mostrar mensaje cuando no hay ciudades favoritas -->
     <androidx.cardview.widget.CardView
         android:id="@+id/cardViewNoCities"
         android:layout_width="match_parent"

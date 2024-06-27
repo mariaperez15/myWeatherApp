@@ -71,7 +71,7 @@ class CityDetailFragment : Fragment() {
                     saveCityData(it)
                 }
             } else {
-                // Implementa la lógica para eliminar la ciudad de la base de datos si se deselecciona
+                // Not implemented
             }
         }
 
