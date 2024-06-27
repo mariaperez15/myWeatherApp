@@ -1,5 +1,6 @@
 package com.example.myweatherapp
 
+import ImageViewPager
 import android.os.Build
 import android.os.Bundle
 import androidx.annotation.RequiresApi
@@ -31,6 +32,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.home -> replaceFragment(Home())
                 R.id.places -> replaceFragment(Places())
                 R.id.settings -> replaceFragment(Settings())
+                R.id.imageViewPager -> replaceFragment(ImageViewPager())
 
                 else -> {
                 }

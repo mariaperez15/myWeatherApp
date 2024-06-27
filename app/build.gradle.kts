@@ -101,4 +101,7 @@ dependencies {
     implementation ("androidx.datastore:datastore-preferences:1.0.0")
     implementation ("androidx.datastore:datastore-core:1.0.0")
 
+    //ViewPager
+    implementation ("androidx.viewpager2:viewpager2:1.0.0")
+
 }
