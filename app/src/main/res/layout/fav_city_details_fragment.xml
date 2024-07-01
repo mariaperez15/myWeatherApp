@@ -24,7 +24,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp" />
+            android:layout_marginTop="20dp"
+            android:textColor="@color/white"/>
 
         <ImageView
             android:id="@+id/heartIcon"
@@ -54,7 +55,8 @@
                 android:textSize="14sp"
                 android:text="Updated at"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:textColor="@color/white">
             </TextView>
 
         </LinearLayout>
@@ -69,12 +71,14 @@
 
             <TextView
                 android:id="@+id/favCurrentTemp"
-                android:textSize="90sp"
+                android:textSize="70sp"
                 android:fontFamily="sans-serif-thin"
                 android:layout_gravity="center"
                 android:text="24ºC"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:layout_marginTop="80dp">
             </TextView>
 
             <LinearLayout
@@ -82,14 +86,15 @@
                 android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp">
+                android:layout_marginTop="70dp">
 
                 <TextView
                     android:id="@+id/favTempMinText"
                     android:text="Min temp"
                     android:textSize="17sp"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white">
                 </TextView>
 
                 <Space
@@ -102,7 +107,8 @@
                     android:text="Max temp"
                     android:textSize="17sp"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white">
                 </TextView>
             </LinearLayout>
             <LinearLayout
@@ -110,7 +116,7 @@
                 android:gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp">
+                android:layout_marginTop="12dp">
                 <TextView
                     android:id="@+id/favTemperatureMin"
                     android:textSize="18sp"
@@ -118,7 +124,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/favTempMinText"
-                    android:textStyle="bold">
+                    android:textStyle="bold"
+                    android:textColor="@color/white">
                 </TextView>
                 <Space
                     android:layout_width="55dp"
@@ -131,7 +138,8 @@
                     android:layout_height="wrap_content"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    android:layout_below="@id/favTempMaxText">
+                    android:layout_below="@id/favTempMaxText"
+                    android:textColor="@color/white">
                 </TextView>
             </LinearLayout>
         </LinearLayout>
@@ -158,21 +166,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
+                android:textColor="@color/white"
                 android:gravity="center_vertical">
             </TextView>
 
         </LinearLayout>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/favRecyclerDetails"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="0dp"
-            android:layout_marginEnd="0dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/temperature_item"/>
 
         <ProgressBar
             android:id="@+id/favLoader"

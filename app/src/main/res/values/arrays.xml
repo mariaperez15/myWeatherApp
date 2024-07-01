@@ -17,7 +17,6 @@
         <item>Málaga</item>
         <item>Córdoba</item>
         <item>Huelva</item>
-        <item>Nueva York</item>
     </string-array>
 
     <string-array name="city_coordinates">
@@ -31,6 +30,5 @@
         <item>36.7202, -4.4203</item>
         <item>37.8916, -4.7728</item>
         <item>37.2664, -6.94</item>
-        <item>40.7143, -74.006</item>
     </string-array>
 </resources>

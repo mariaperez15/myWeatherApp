@@ -24,11 +24,12 @@
             android:layout_marginTop="20dp"
             android:backgroundTint="#0099CC"
             android:textColor="@android:color/white" />
-
+m
         <TextView
             android:id="@+id/cityName"
             android:textSize="24sp"
             android:text="Location"
+            android:textColor="@color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
@@ -48,7 +49,8 @@
                 android:textSize="14sp"
                 android:text="Updated at"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:textColor="@color/white">
             </TextView>
         </LinearLayout>
 
@@ -62,10 +64,11 @@
 
             <TextView
                 android:id="@+id/currentTemp"
-                android:textSize="90sp"
+                android:textSize="70sp"
                 android:fontFamily="sans-serif-thin"
                 android:layout_gravity="center"
                 android:text="24ºC"
+                android:textColor="@color/white"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
             </TextView>
@@ -80,6 +83,7 @@
                 <TextView
                     android:id="@+id/temp_min"
                     android:text="Min temp"
+                    android:textColor="@color/white"
                     android:textSize="17sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
@@ -93,6 +97,7 @@
                 <TextView
                     android:id="@+id/temp_max"
                     android:text="Max temp"
+                    android:textColor="@color/white"
                     android:textSize="17sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
@@ -111,6 +116,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/temp_min"
+                android:textColor="@color/white"
                 android:textStyle="bold">
             </TextView>
                 <Space
@@ -124,6 +130,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
                 android:textStyle="bold"
+                android:textColor="@color/white"
                 android:layout_below="@id/temp_max">
             </TextView>
             </LinearLayout>
@@ -148,6 +155,7 @@
             <TextView
                 android:id="@+id/rain"
                 android:text="Rain"
+                android:textColor="@color/white"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"

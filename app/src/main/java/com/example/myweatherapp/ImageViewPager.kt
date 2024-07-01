@@ -18,17 +18,11 @@ class ImageViewPager : Fragment() {
         viewPager = view.findViewById(R.id.viewPager)
 
         val imageResIds = listOf(
-            R.drawable.barcelona,
+
+            R.drawable.almeria,
             R.drawable.burgos,
-            R.drawable.sevilla,
-            R.drawable.leon,
-            R.drawable.pamplona,
-            R.drawable.nueva_york,
-            R.drawable.malaga,
             R.drawable.madrid,
-            R.drawable.valencia,
-            R.drawable.valladolid,
-            R.drawable.huelva,
+            R.drawable.sevilla,
         )
 
         viewPager.adapter = ImagePagerAdapter(imageResIds)

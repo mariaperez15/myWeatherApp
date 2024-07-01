@@ -114,7 +114,6 @@ class CityDetailFragment : Fragment() {
                                     val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm", Locale.getDefault())
                                     val date = inputFormat.parse(time)
                                     if (date != null && date >= currentTime) {
-                                        Log.d("Temperature", "Hora: ${time.substring(11, 16)}, Temperatura: $temperature")
                                         Temperature(
                                             hour = time.substring(11, 16),
                                             degrees = temperature,

@@ -21,7 +21,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp" />
+            android:layout_marginTop="20dp"
+            android:textColor="@color/white"/>
 
         <ImageView
             android:id="@+id/heartIcon"
@@ -49,7 +50,8 @@
                 android:textSize="14sp"
                 android:text="Updated at"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"/>
         </LinearLayout>
 
         <LinearLayout
@@ -61,12 +63,13 @@
 
             <TextView
                 android:id="@+id/currentTemp2"
-                android:textSize="90sp"
+                android:textSize="70sp"
                 android:fontFamily="sans-serif-thin"
                 android:text="24ºC"
                 android:layout_gravity="center"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"/>
 
             <LinearLayout
                 android:orientation="horizontal"
@@ -80,7 +83,8 @@
                     android:text="Min temp"
                     android:textSize="17sp"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"/>
 
                 <Space
                     android:layout_width="50dp"
@@ -91,7 +95,8 @@
                     android:text="Max temp"
                     android:textSize="17sp"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"/>
             </LinearLayout>
 
             <LinearLayout
@@ -107,7 +112,8 @@
                     android:text="Min Temp"
                     android:textStyle="bold"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"/>
 
                 <Space
                     android:layout_width="55dp"
@@ -119,7 +125,8 @@
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"/>
             </LinearLayout>
         </LinearLayout>
 
@@ -145,7 +152,8 @@
                 android:textSize="18sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical" />
+                android:gravity="center_vertical"
+                android:textColor="@color/white"/>
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView

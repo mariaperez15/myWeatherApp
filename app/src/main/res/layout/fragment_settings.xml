@@ -22,13 +22,14 @@
         style="@style/SpinnerDropDownStyle"
         android:entries="@array/update_frequency_options"
         android:gravity="end"
-        android:textColor="@android:color/white" />
+        android:textColor="@color/white" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="16sp"
         android:textStyle="bold"
+        android:textColor="@color/white"
         android:text="Selecciona la ciudad por defecto"
         android:layout_marginTop="40dp" />
 
@@ -40,6 +41,6 @@
         style="@style/SpinnerDropDownStyle"
         android:entries="@array/city_names"
         android:gravity="end"
-        android:textColor="@android:color/white" />
+        android:textColor="@color/white" />
 
 </LinearLayout>

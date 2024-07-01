@@ -65,8 +65,8 @@ class FavCityDetailFragment : Fragment() {
     private fun displayCityDetails(cityEntity: CityEntity) {
         binding.FavCityNameDetails.text = cityEntity.name
         binding.favCurrentTemp.text = "${cityEntity.currentTemperature} °C"
-        binding.favTemperatureMax.text = "${cityEntity.minTemperature} °C"
-        binding.favTemperatureMin.text = "${cityEntity.maxTemperature} °C"
+        binding.favTemperatureMin.text = "${cityEntity.minTemperature} °C"
+        binding.favTemperatureMax.text = "${cityEntity.maxTemperature} °C"
         binding.favRainText.text = "${cityEntity.precipitation} mm"
         binding.favUpdateAt.text = cityEntity.updatedAt
     }
